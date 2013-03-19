@@ -52,6 +52,7 @@
 			gui.add(texter, 'angleDistortion', 0, 2).step(0.1).name( 'Random Angle' );
 			gui.addColor(texter, 'textColor').name( 'Text Color' ).onChange( function(value) { texter.applyNewColor( value ) } );
 			gui.addColor(texter, 'bgColor').name( 'Background Color' ).onChange( function(value) { texter.setBackground( value ) } );
+			gui.add(texter, 'completeWords').name( 'Complete Words' );
 			gui.add(texter, 'clear').name( 'Clear' );
 			gui.add(texter, 'save').name( 'Save' );
 

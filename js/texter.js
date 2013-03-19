@@ -18,6 +18,7 @@ function Texter() {
   this.minFontSize = 8;
   this.maxFontSize = 300;
   this.angleDistortion = 0.01;
+  this.completeWords = true;
 
   this.text = "There was a table set out under a tree in front of the house, and the March Hare and the Hatter were having tea at it: a Dormouse was sitting between them, fast asleep, and the other two were using it as a cushion, resting their elbows on it, and talking over its head. 'Very uncomfortable for the Dormouse,' thought Alice; 'only, as it's asleep, I suppose it doesn't mind.'";
 
@@ -126,6 +127,42 @@ function Texter() {
 
   var mouseUp = function( event ){
     mouse.down = false;
+    if (_this.completeWords == false) {
+	return;
+    }
+
+    // Finish word following the same angle
+    var newDistance = distance( position, mouse );
+    var fontSize = _this.minFontSize + newDistance/2;
+
+    if ( fontSize > _this.maxFontSize ) {
+      fontSize = _this.maxFontSize;
+    }
+
+    var letter = _this.text[textIndex];
+    var angle = Math.atan2(mouse.y-position.y, mouse.x-position.x);
+    var cos = Math.cos(angle);
+    var sin = Math.sin(angle);
+    context.font = fontSize + "px Georgia";
+    while(letter != ' ') {
+	context.save();
+	context.translate( position.x, position.y);
+        context.rotate( angle + ( Math.random() * ( _this.angleDistortion * 2 ) - _this.angleDistortion ) );
+	context.fillText(letter,0,0);
+	context.restore();
+
+        textIndex++;
+        if (textIndex > _this.text.length-1) {
+          textIndex = 0;
+          return;
+        }
+	else {
+          var stepSize = textWidth( letter, fontSize );
+          position.x = position.x + cos * stepSize;
+          position.y = position.y + sin * stepSize;
+          letter = _this.text[textIndex];
+	}
+    }
   }
 
   var textWidth = function( string, size ) {
