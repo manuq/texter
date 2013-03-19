@@ -74,12 +74,7 @@ function Texter() {
   var draw = function() { 
     if ( mouse.down ) {
       var newDistance = distance( position, mouse );
-      var fontSize = _this.minFontSize + newDistance/2;
-
-      if ( fontSize > _this.maxFontSize ) {
-        fontSize = _this.maxFontSize;
-      }
-
+      var fontSize = calcFontSize( newDistance );
       var letter = _this.text[textIndex];
       var stepSize = textWidth( letter, fontSize );
       
@@ -87,12 +82,8 @@ function Texter() {
         var angle = Math.atan2(mouse.y-position.y, mouse.x-position.x);
         
         context.font = fontSize + "px Georgia";
-      
-        context.save();
-        context.translate( position.x, position.y);
-        context.rotate( angle + ( Math.random() * ( _this.angleDistortion * 2 ) - _this.angleDistortion ) );
-        context.fillText(letter,0,0);
-        context.restore();
+
+        letter_to_context( letter, angle );
 
         textIndex++;
         if (textIndex > _this.text.length-1) {
@@ -119,6 +110,23 @@ function Texter() {
     return Math.sqrt( xs + ys );
   };
 
+  var calcFontSize = function( d ) {
+    var fontSize = _this.minFontSize + d/2;
+
+    if ( fontSize > _this.maxFontSize ) {
+      fontSize = _this.maxFontSize;
+    }
+    return fontSize;
+  }
+
+  var letter_to_context = function( letter, angle ) {
+        context.save();
+        context.translate( position.x, position.y);
+        context.rotate( angle + ( Math.random() * ( _this.angleDistortion * 2 ) - _this.angleDistortion ) );
+        context.fillText(letter,0,0);
+        context.restore();
+  }
+
   var mouseDown = function( event ){
     mouse.down = true;
     position.x = event.pageX;
@@ -133,23 +141,15 @@ function Texter() {
 
     // Finish word following the same angle
     var newDistance = distance( position, mouse );
-    var fontSize = _this.minFontSize + newDistance/2;
-
-    if ( fontSize > _this.maxFontSize ) {
-      fontSize = _this.maxFontSize;
-    }
-
+    var fontSize = calcFontSize( newDistance );
     var letter = _this.text[textIndex];
     var angle = Math.atan2(mouse.y-position.y, mouse.x-position.x);
     var cos = Math.cos(angle);
     var sin = Math.sin(angle);
     context.font = fontSize + "px Georgia";
     while(letter != ' ') {
-	context.save();
-	context.translate( position.x, position.y);
-        context.rotate( angle + ( Math.random() * ( _this.angleDistortion * 2 ) - _this.angleDistortion ) );
-	context.fillText(letter,0,0);
-	context.restore();
+
+        letter_to_context( letter, angle );
 
         textIndex++;
         if (textIndex > _this.text.length-1) {
