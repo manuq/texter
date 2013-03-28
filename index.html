@@ -10,6 +10,7 @@
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="css/jquery.minicolors.css" rel="stylesheet" media="screen">
+    <link href="css/redmond/jquery-ui-1.10.2.custom.min.css" rel="stylesheet" media="screen">
     <style type="text/css">
       #controls-wrapper {
         position: fixed;
@@ -40,6 +41,9 @@
         background-color: #fff;
         min-height: 185px;
       }
+      #tab2 {
+        padding: 0 10px;
+      }
     </style>
   </head>
   <body>
@@ -50,7 +54,7 @@
         <div id="controls">
           <div class="row">
             <div class="span3 text-center">
-              <h2>Texter</h2>
+              <h2>Dedicate!</h2>
             </div>
           </div>
           <div class="row">
@@ -61,8 +65,11 @@
                     <textarea id="user-text" rows="7"></textarea>
                   </div>
                   <div class="tab-pane" id="tab2">
-		    Color: <input class="minicolors" type="text" value="#000000">
-		  </div>
+                      <label>Color:</label><input class="minicolors" type="text" value="#000000">
+                      <label>Minimun Size:</label><div id="slider-size-min"></div>
+                      <label>Maximun Size:</label><div id="slider-size-max"></div>
+                      <label>Random Angle:</label><div id="slider-angle"></div>
+                  </div>
                 </div>
                 <ul class="nav nav-tabs">
                   <li class="active"><a href="#tab1" data-toggle="tab">Text</a></li>
@@ -88,11 +95,55 @@
     <script src="http://code.jquery.com/jquery.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.minicolors.js"></script>
+    <script src="js/jquery-ui-1.10.2.custom.min.js"></script>
     <script>
       var texter = new Texter();
       texter.initialize();
 
       $('#user-text').val(texter.text);
+
+      function updateSizeMin() {
+      var minSize = $('#slider-size-min').slider("value");
+      texter.minFontSize = minSize;
+      }
+
+      $('#slider-size-min').slider({
+        orientation: "horizontal",
+        range: "min",
+        min: 3,
+        max: 100,
+        value: 8,
+        change: updateSizeMin
+      });
+
+      function updateSizeMax() {
+      var maxSize = $('#slider-size-max').slider("value");
+      texter.maxFontSize = maxSize;
+      }
+
+      $('#slider-size-max').slider({
+        orientation: "horizontal",
+        range: "min",
+        min: 3,
+        max: 300,
+        value: 8,
+        change: updateSizeMax
+      });
+
+      function updateAngle() {
+        var angle = $('#slider-angle').slider("value");
+        texter.angleDistortion = angle;
+      }
+
+      $('#slider-angle').slider({
+        orientation: "horizontal",
+        range: "min",
+        min: 0,
+        max: 2,
+        step: 0.1,
+        value: 0.01,
+        change: updateAngle
+      });
 
       $('.minicolors').minicolors({
         'textfield': false,
@@ -126,9 +177,6 @@
       });
 
       var gui = new dat.GUI();
-      gui.add(texter, 'minFontSize', 3, 100).name( 'Minimum Size' );
-      gui.add(texter, 'maxFontSize', 3, 400).name( 'Maximum Size' );
-      gui.add(texter, 'angleDistortion', 0, 2).step(0.1).name( 'Random Angle' );
       gui.add(texter, 'completeWords').name( 'Complete Words' );
     </script>
   </body>
