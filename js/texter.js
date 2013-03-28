@@ -19,6 +19,8 @@ function Texter() {
   this.bgColor = "#ffffff";
   this.minFontSize = 8;
   this.maxFontSize = 300;
+  this.angle = 0;
+  this.angleDelta = 0;
   this.angleDistortion = 0.01;
   this.completeWords = true;
 
@@ -74,10 +76,12 @@ function Texter() {
       
       if (newDistance > stepSize) {
         var angle = Math.atan2(mouse.y-position.y, mouse.x-position.x);
+	_this.angleDelta = _this.angle - angle;
+	_this.angle = angle;
         
         context.font = fontSize + "px Georgia";
 
-        letter_to_context( letter, angle );
+        letter_to_context( letter );
 
         textIndex++;
         if (textIndex > _this.text.length-1) {
@@ -113,10 +117,10 @@ function Texter() {
     return fontSize;
   }
 
-  var letter_to_context = function( letter, angle ) {
+  var letter_to_context = function( letter ) {
         context.save();
         context.translate( position.x, position.y);
-        context.rotate( angle + ( Math.random() * ( _this.angleDistortion * 2 ) - _this.angleDistortion ) );
+        context.rotate( _this.angle + ( Math.random() * ( _this.angleDistortion * 2 ) - _this.angleDistortion ) );
         context.fillText(letter,0,0);
         context.restore();
   }
@@ -145,25 +149,24 @@ function Texter() {
     var newDistance = distance( position, mouse );
     var fontSize = calcFontSize( newDistance );
     var letter = _this.text[textIndex];
-    var angle = Math.atan2(mouse.y-position.y, mouse.x-position.x);
-    var cos = Math.cos(angle);
-    var sin = Math.sin(angle);
     context.font = fontSize + "px Georgia";
     while(letter != ' ') {
 
-        letter_to_context( letter, angle );
+        letter_to_context( letter );
 
         textIndex++;
         if (textIndex > _this.text.length-1) {
           textIndex = 0;
           return;
         }
-	else {
+        else {
           var stepSize = textWidth( letter, fontSize );
-          position.x = position.x + cos * stepSize;
-          position.y = position.y + sin * stepSize;
+          position.x = position.x + Math.cos(_this.angle) * stepSize;
+          position.y = position.y + Math.sin(_this.angle) * stepSize;
           letter = _this.text[textIndex];
-	}
+          _this.angle -= _this.angleDelta;
+          _this.angleDelta -= _this.angleDelta / 6;
+        }
     }
   }
 
