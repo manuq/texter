@@ -50,15 +50,6 @@ function Texter() {
     bgCanvas.height = canvas.height;
     _this.setBackground( _this.bgColor );
 
-    window.onresize = function(event) {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      bgCanvas.width = window.innerWidth;
-      bgCanvas.height = window.innerHeight;
-      _this.setBackground( _this.bgColor );
-      _this.clear();
-    }
-
     update();
   };
 
