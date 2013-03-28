@@ -42,7 +42,7 @@ function Texter() {
     canvas.addEventListener('mousemove', mouseMove, false);
     canvas.addEventListener('mousedown', mouseDown, false);
     canvas.addEventListener('mouseup',   mouseUp,   false);
-    canvas.addEventListener('mouseout',  mouseUp,  false);
+    canvas.addEventListener('mouseout',  mouseOut,  false);
 
     bgCanvas = document.createElement( 'canvas' );
     bgContext = bgCanvas.getContext( '2d' );
@@ -126,6 +126,10 @@ function Texter() {
     var rect = canvas.getBoundingClientRect();
     position.x = event.clientX - rect.left;
     position.y = event.clientY - rect.top;
+  }
+
+  var mouseOut = function( event ){
+    mouse.down = false;
   }
 
   var mouseUp = function( event ){
