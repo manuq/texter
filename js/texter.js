@@ -133,6 +133,9 @@ function Texter() {
   }
 
   var mouseUp = function( event ){
+    if (mouse.down == false) {
+	return;
+    }
     mouse.down = false;
     if (_this.completeWords == false) {
 	return;
