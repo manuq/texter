@@ -64,15 +64,18 @@
                     <textarea id="user-text" rows="7"></textarea>
                   </div>
                   <div class="tab-pane" id="tab2">
-                      <label>Color:</label><input class="minicolors" type="text" value="#000000">
                       <label>Minimun Size:</label><div id="slider-size-min"></div>
                       <label>Maximun Size:</label><div id="slider-size-max"></div>
                       <label>Random Angle:</label><div id="slider-angle"></div>
+                  </div>
+                  <div class="tab-pane text-center" id="tab3">
+                      <input class="minicolors" type="text" value="#000000">
                   </div>
                 </div>
                 <ul class="nav nav-tabs">
                   <li class="active"><a href="#tab1" data-toggle="tab">Text</a></li>
                   <li><a href="#tab2" data-toggle="tab">Settings</a></li>
+                  <li><a href="#tab3" data-toggle="tab">Color</a></li>
                 </ul>
               </div>
             </div>
@@ -145,6 +148,7 @@
       });
 
       $('.minicolors').minicolors({
+        'inline': true,
         'textfield': false,
         change: function(hex, opacity) {
           texter.applyNewColor(hex);
