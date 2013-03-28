@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="css/jquery.minicolors.css" rel="stylesheet" media="screen">
     <style type="text/css">
       #controls-wrapper {
         position: fixed;
@@ -59,13 +60,13 @@
                   <div class="tab-pane active" id="tab1">
                     <textarea id="user-text" rows="7"></textarea>
                   </div>
-                  <div class="tab-pane" id="tab2">Tweaks!</div>
-                  <div class="tab-pane" id="tab3">Colors!</div>
+                  <div class="tab-pane" id="tab2">
+		    Color: <input class="minicolors" type="text" value="#000000">
+		  </div>
                 </div>
                 <ul class="nav nav-tabs">
                   <li class="active"><a href="#tab1" data-toggle="tab">Text</a></li>
-                  <li><a href="#tab2" data-toggle="tab">Tweaks</a></li>
-                  <li><a href="#tab3" data-toggle="tab">Colors</a></li>
+                  <li><a href="#tab2" data-toggle="tab">Settings</a></li>
                 </ul>
               </div>
             </div>
@@ -86,11 +87,20 @@
     </div>
     <script src="http://code.jquery.com/jquery.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.minicolors.js"></script>
     <script>
       var texter = new Texter();
       texter.initialize();
 
       $('#user-text').val(texter.text);
+
+      $('.minicolors').minicolors({
+        'textfield': false,
+        change: function(hex, opacity) {
+          texter.applyNewColor(hex);
+        }
+//        'theme': 'bootstrap'
+      });
 
       $('#hide-show-btn').click(function() {
         if ($('#controls').is(":visible")) {
@@ -119,8 +129,6 @@
       gui.add(texter, 'minFontSize', 3, 100).name( 'Minimum Size' );
       gui.add(texter, 'maxFontSize', 3, 400).name( 'Maximum Size' );
       gui.add(texter, 'angleDistortion', 0, 2).step(0.1).name( 'Random Angle' );
-      gui.addColor(texter, 'textColor').name( 'Text Color' ).onChange( function(value) { texter.applyNewColor( value ) } );
-      gui.addColor(texter, 'bgColor').name( 'Background Color' ).onChange( function(value) { texter.setBackground( value ) } );
       gui.add(texter, 'completeWords').name( 'Complete Words' );
     </script>
   </body>
