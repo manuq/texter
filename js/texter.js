@@ -36,8 +36,8 @@ function Texter() {
     
     canvas = document.getElementById( 'canvas' );
     context = canvas.getContext( '2d' );
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    canvas.width = 800;
+    canvas.height = 600;
     
     canvas.addEventListener('mousemove', mouseMove, false);
     canvas.addEventListener('mousedown', mouseDown, false);
@@ -54,8 +54,9 @@ function Texter() {
   };
 
   var mouseMove = function( event ) {
-    mouse.x = event.pageX;
-    mouse.y = event.pageY;
+    var rect = canvas.getBoundingClientRect();
+    mouse.x = event.clientX - rect.left;
+    mouse.y = event.clientY - rect.top;
     draw();
   };
 
@@ -122,8 +123,9 @@ function Texter() {
 
   var mouseDown = function( event ){
     mouse.down = true;
-    position.x = event.pageX;
-    position.y = event.pageY;
+    var rect = canvas.getBoundingClientRect();
+    position.x = event.clientX - rect.left;
+    position.y = event.clientY - rect.top;
   }
 
   var mouseUp = function( event ){
