@@ -6,6 +6,8 @@
  *  - Modified and maintained by Tim Holman - tholman.com - @twholman
  */
 
+var defaultText = 'Texter ';
+
 function Texter() {
 
   var _this = this;
@@ -193,7 +195,11 @@ function Texter() {
 
   };
 
-  this.onTextChange = function() {
+  this.setText = function(text) {
+    if (text == '') {
+      text = defaultText;
+    }
+    this.text = text;
     textIndex = 0;
   }
 
