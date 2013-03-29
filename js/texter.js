@@ -183,6 +183,7 @@ function Texter() {
 
   this.clear = function() {
     canvas.width = canvas.width;
+    textIndex = 0;
     context.fillStyle = _this.textColor;
   }
 
