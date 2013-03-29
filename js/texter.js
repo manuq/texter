@@ -17,8 +17,8 @@ function Texter() {
   textIndex = 0;
   this.textColor = "#000000";
   this.bgColor = "#ffffff";
-  this.minFontSize = 8;
-  this.maxFontSize = 300;
+  this.curFontSize = 16;
+  this.varFontSize = 0.4;
   this.angle = 0;
   this.angleDelta = 0;
   this.angleDistortion = 0.01;
@@ -112,11 +112,7 @@ function Texter() {
   };
 
   var calcFontSize = function( d ) {
-    var fontSize = _this.minFontSize + d/2;
-
-    if ( fontSize > _this.maxFontSize ) {
-      fontSize = _this.maxFontSize;
-    }
+    var fontSize = _this.curFontSize + d * _this.varFontSize;
     return fontSize;
   }
 

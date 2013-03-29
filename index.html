@@ -92,8 +92,8 @@
                     <textarea id="user-text" rows="7"></textarea>
                   </div>
                   <div class="tab-pane" id="tab2">
-                      <label>Minimun Size:</label><div id="slider-size-min"></div>
-                      <label>Maximun Size:</label><div id="slider-size-max"></div>
+                      <label>Size:</label><div id="slider-size"></div>
+                      <label>Vary size with velocity:</label><div id="slider-size-var"></div>
                       <label>Random Angle:</label><div id="slider-angle"></div>
                   </div>
                   <div class="tab-pane text-center" id="tab3">
@@ -132,32 +132,32 @@
 
       $('#user-text').val(texter.text);
 
-      function updateSizeMin() {
-      var minSize = $('#slider-size-min').slider("value");
-      texter.minFontSize = minSize;
+      function updateSize() {
+      var size = $('#slider-size').slider("value");
+      texter.curFontSize = size;
       }
 
-      $('#slider-size-min').slider({
+      $('#slider-size').slider({
         orientation: "horizontal",
         range: "min",
         min: 3,
         max: 100,
-        value: 8,
-        change: updateSizeMin
+        value: 16,
+        change: updateSize
       });
 
-      function updateSizeMax() {
-      var maxSize = $('#slider-size-max').slider("value");
-      texter.maxFontSize = maxSize;
+      function updateSizeVar() {
+      var varSize = $('#slider-size-var').slider("value");
+      texter.varFontSize = 0.008 * varSize;
       }
 
-      $('#slider-size-max').slider({
+      $('#slider-size-var').slider({
         orientation: "horizontal",
         range: "min",
-        min: 3,
-        max: 300,
-        value: 8,
-        change: updateSizeMax
+        min: 0,
+        max: 100,
+        value: 50,
+        change: updateSizeVar
       });
 
       function updateAngle() {
