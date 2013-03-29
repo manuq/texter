@@ -82,7 +82,7 @@ function Texter() {
        }
 	_this.angle = angle;
         
-        context.font = fontSize + "px Georgia";
+        context.font = fontSize + "px Gabriela";
 
         letter_to_context( letter );
 
@@ -152,7 +152,7 @@ function Texter() {
     var newDistance = distance( position, mouse );
     var fontSize = calcFontSize( newDistance );
     var letter = _this.text[textIndex];
-    context.font = fontSize + "px Georgia";
+    context.font = fontSize + "px Gabriela";
     while(letter != ' ') {
 
         letter_to_context( letter );
@@ -174,7 +174,7 @@ function Texter() {
   }
 
   var textWidth = function( string, size ) {
-    context.font = size + "px Georgia";
+    context.font = size + "px Gabriela";
     
     if ( context.fillText ) {
       return context.measureText( string ).width;
