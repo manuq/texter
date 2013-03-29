@@ -77,6 +77,9 @@ function Texter() {
       if (newDistance > stepSize) {
         var angle = Math.atan2(mouse.y-position.y, mouse.x-position.x);
 	_this.angleDelta = _this.angle - angle;
+       if (_this.angleDelta > 3.14) {
+         _this.angleDelta = _this.angle + angle;
+       }
 	_this.angle = angle;
         
         context.font = fontSize + "px Georgia";
