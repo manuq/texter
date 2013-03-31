@@ -61,7 +61,7 @@
         margin-top: 5px;
         margin-bottom: 2px;
       }
-      #tab2 label:first-child {
+      #tab2 > label:first-child {
         margin-top: 0;
       }
       .ui-slider .ui-slider-handle {
@@ -73,6 +73,9 @@
       }
       .nav-tabs {
         font-size: 13px;
+      }
+      input[type='checkbox'] {
+        margin-top: 0;
       }
     </style>
   </head>
@@ -100,6 +103,7 @@
                       <label>Size:</label><div id="slider-size"></div>
                       <label>Vary size with velocity:</label><div id="slider-size-var"></div>
                       <label>Random Angle:</label><div id="slider-angle"></div>
+                      <label><input id="complete-checkbox" type="checkbox" checked="checked"> Complete words</label>
                   </div>
                   <div class="tab-pane text-center" id="tab3">
                       <input class="minicolors" type="text" value="#000000">
@@ -178,6 +182,10 @@
         step: 0.1,
         value: 0.01,
         change: updateAngle
+      });
+
+      $('#complete-checkbox').click(function() {
+        texter.completeWords = $(this).is(':checked');
       });
 
       $('.minicolors').minicolors({
