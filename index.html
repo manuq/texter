@@ -2,6 +2,7 @@
 <html>
   <head>
     <title> Texter </title>
+    <meta charset="utf-8">
     <!-- JS -->
     <script type="text/javascript" src="js/libs/animationFrame.js"></script>
     <script type="text/javascript" src="js/texter.js"></script>
@@ -20,6 +21,7 @@
         text-align: center;
       }
       #canvas {
+      cursor: crosshair;
       width: 800px;
       height: 600px;
       }
@@ -69,6 +71,9 @@
       .ui-slider-horizontal {
         height: 0.4em;
       }
+      .nav-tabs {
+        font-size: 13px;
+      }
     </style>
   </head>
   <body>
@@ -89,7 +94,7 @@
               <div class="tabbable tabs-below">
                 <div class="tab-content">
                   <div class="tab-pane active" id="tab1">
-                    <textarea id="user-text" rows="7"></textarea>
+                    <textarea id="user-text" rows="7">Texter</textarea>
                   </div>
                   <div class="tab-pane" id="tab2">
                       <label>Size:</label><div id="slider-size"></div>
@@ -130,7 +135,7 @@
       var texter = new Texter();
       texter.initialize();
 
-      $('#user-text').val(texter.text);
+      texter.setText($('#user-text').val());
 
       function updateSize() {
       var size = $('#slider-size').slider("value");
@@ -142,7 +147,7 @@
         range: "min",
         min: 3,
         max: 100,
-        value: 16,
+        value: 12,
         change: updateSize
       });
 
